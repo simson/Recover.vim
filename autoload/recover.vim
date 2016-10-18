@@ -134,7 +134,8 @@ fu! recover#ConfirmSwapDiff() "{{{1
 	    if filereadable(proc)
 		let pname = matchstr(readfile(proc)[0], '^Name:\s*\zs.*')
 	    endif
-	    let msg = substitute(msg, pid_pat, '& ['.pname."]\n", '')
+	    let tmux_pane = system("~/bin/where_is ".pid)
+	    let msg = substitute(msg, pid_pat, '& ['.pname."] TMUX = ".tmux_pane." \n", '')
 	    if not_modified && pname !~? 'vim'
 		let not_modified = 0
 	    endif
